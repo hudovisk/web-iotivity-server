@@ -10,7 +10,9 @@ export function registerResource(userId, resourceData) {
             if(err) {
                 if(err.code === 11000) {
                     Resource.update({identifier: resourceData.identifier}, {
-                        resourceData
+                        attrs: resourceData.attrs,
+                        uri: resourceData.uri,
+                        host: resourceData.host
                     }, (err, numOfAffected) => {
                         if(err) return reject(err);
                         if(numOfAffected <= 0) {
