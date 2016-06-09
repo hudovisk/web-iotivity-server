@@ -9,7 +9,13 @@ export default function() {
     router.get('/', 
         requireToken,
         (req, res, next) => {
-            
+            ResourceController.getResourcesByUserId(req.user._id)
+                .then((resources) => {
+                    return res.status(200).json({resources});
+                }, (reason) =>{
+                    console.log(reason);
+                    return res.status(500).end();
+                });
         }
     );
 

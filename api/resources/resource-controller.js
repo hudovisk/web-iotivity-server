@@ -14,5 +14,11 @@ export function registerResource(userId, resourceData) {
 }
 
 export function getResourcesByUserId(userId) {
-
+    return new Promise(function(resolve, reject) {
+        Resource.find({owner: userId})
+            .exec(function(err, resources){
+                if(err) return reject(err);
+                return resolve(resources);
+            });
+    });
 }
