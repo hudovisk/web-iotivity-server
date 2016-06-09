@@ -97,3 +97,5 @@ io.on('connection', function(socket){
 http.listen(port, function() {
     console.log('Listenning on port: ' + port);
 });
+
+export default sockets;

@@ -37,3 +37,14 @@ export function getResourcesByUserId(userId) {
             });
     });
 }
+
+export function getResourcesById(resourceId) {
+    return new Promise(function(resolve, reject) {
+        Resource.findById(resourceId)
+            .exec(function(err, resource){
+                if(err) return reject(err);
+                if(!resource) return reject("Not found");
+                return resolve(resource);
+            });
+    });
+}
