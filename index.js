@@ -59,7 +59,7 @@ app.use('/api/resources/', resourceRouter());
 app.use('/api/users/', userRouter());
 
 io.use(function(socket, next) {
-  var token = socket.request.query.token;
+  var token = socket.request._query.token;
   checkToken(token, function(err, user){
     if (err || !user) {
       next(new Error("not authorized"));
@@ -73,15 +73,16 @@ io.on('connection', function(socket){
   console.log('a gateway connected');
   sockets[socket.user._id] = socket;
 
-  socket.on("discovery", function(deviceId) {
+  socket.emit("discovery");
+
+  socket.on("discovery response", function(deviceId) {
     console.log("New device " + deviceId);
     socket.emit("get", {identifier: deviceId});
   });
 
   socket.on("get response", function(getResponse) {
     console.log("Get response");
-    console.log(getResponse);
-    ResourceController.registerResource()
+    ResourceController.registerResource(socket.user._id, getResponse);
   });
 
 });
