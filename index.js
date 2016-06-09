@@ -82,7 +82,13 @@ io.on('connection', function(socket){
 
   socket.on("get response", function(getResponse) {
     console.log("Get response");
-    ResourceController.registerResource(socket.user._id, getResponse);
+    ResourceController.registerResource(socket.user._id, getResponse)
+      .then(() => {
+        console.log(getResponse.identifier + " registered successfuly");
+      }, (reason) => {
+        console.log("Failed to register resource: " + getResponse.identifier);
+        console.log(reason);
+      });
   });
 
 });

@@ -7,7 +7,22 @@ export function registerResource(userId, resourceData) {
         console.log(resourceData);
         var resource = new Resource(resourceData);
         resource.save(function(err) {
-            if(err) return reject(err);
+            if(err) {
+                if(err.code === 11000) {
+                    Resource.update({resourceData.identifier}, {
+                        resourceData
+                    }, (err, numOfAffected) => {
+                        if(err) return reject(err);
+                        if(numOfAffected <= 0) {
+                            return reject("No resources found");
+                        }
+                        return resolve();
+                    });
+                }
+                else {
+                    return reject(err);
+                }
+            }
             return resolve();
         });
     });
