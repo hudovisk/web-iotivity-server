@@ -7,8 +7,9 @@
 
     // First application
     {
-      name      : "Web-iotivity",
-      script    : "index.js",
+      "name"      : "Web-iotivity",
+      "script"    : "index.js",
+      "exec_interpreter" : "babel-node"
       env: {
         COMMON_VARIABLE: "true"
       },
@@ -29,7 +30,7 @@
       ref  : "origin/master",
       repo : "git@github.com:hudovisk/web-iotivity-server.git",
       path : "/home/ubuntu/web-iotivity-server",
-      "post-deploy" : "npm install --production && pm2 startOrRestart ecosystem.json --env production"
+      "post-deploy" : "npm install --production && pm2 startOrRestart --env production"
     },
     dev : {
       user : "ubuntu",
