@@ -8,6 +8,7 @@ var AttrSchema =  mongoose.Schema({
 
 var ResourceSchema =  mongoose.Schema({
     owner: {type: mongoose.Schema.ObjectId, ref: 'User'},
+    identifier: String,
     uri: String,
     host: String,
     attrs: [AttrSchema] 
