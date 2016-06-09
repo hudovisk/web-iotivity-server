@@ -21,6 +21,19 @@ export default function() {
         }
     );
 
+    router.get('/:resource_id', 
+        requireToken,
+        (req, res, next) => {
+            ResourceController.getResourcesById(req.params.resource_id)
+                .then((resource) => {
+                    return res.status(200).json({resource});
+                }, (reason) =>{
+                    console.log(reason);
+                    return res.status(500).end();
+                });
+        }
+    );
+
     router.put('/:resource_id', 
         requireToken,
         (req, res, next) => {
