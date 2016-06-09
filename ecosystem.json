@@ -9,7 +9,7 @@
     {
       "name"      : "Web-iotivity",
       "script"    : "index.js",
-      "exec_interpreter" : "babel-node"
+      "exec_interpreter" : "babel-node",
       env: {
         COMMON_VARIABLE: "true"
       },
