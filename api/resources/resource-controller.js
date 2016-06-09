@@ -9,7 +9,7 @@ export function registerResource(userId, resourceData) {
         resource.save(function(err) {
             if(err) {
                 if(err.code === 11000) {
-                    Resource.update({resourceData.identifier}, {
+                    Resource.update({identifier: resourceData.identifier}, {
                         resourceData
                     }, (err, numOfAffected) => {
                         if(err) return reject(err);
