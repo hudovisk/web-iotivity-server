@@ -67,5 +67,21 @@ export default function() {
         }
     );
 
+    router.delete('/:resource_id/observe', 
+        requireToken,
+        (req, res, next) => {
+            ResourceController.getResourcesById(req.params.resource_id)
+                .then((resource) => {
+                    sockets[req.user._id].emit("deobserve", {
+                        identifier: resource.identifier
+                    });
+                    return res.status(200).end();
+                }, (reason) =>{
+                    console.log(reason);
+                    return res.status(500).end();
+                });
+        }
+    );
+
     return router;
 }
