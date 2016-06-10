@@ -58,16 +58,16 @@ app.use('/api/auth/', authRouter());
 app.use('/api/resources/', resourceRouter());
 app.use('/api/users/', userRouter());
 
-// io.use(function(socket, next) {
-//   var token = socket.request._query.token;
-//   checkToken(token, function(err, user){
-//     if (err || !user) {
-//       next(new Error("not authorized"));
-//     }
-//     socket.user = user;
-//     next();
-//   });
-// });
+io.use(function(socket, next) {
+  var token = socket.request._query.token;
+  checkToken(token, function(err, user){
+    if (err || !user) {
+      next(new Error("not authorized"));
+    }
+    socket.user = user;
+    next();
+  });
+});
 
 io.on('connection', function(socket){
   console.log('a gateway connected');
