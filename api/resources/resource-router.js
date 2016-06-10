@@ -51,5 +51,21 @@ export default function() {
         }
     );
 
+    router.post('/:resource_id/observe', 
+        requireToken,
+        (req, res, next) => {
+            ResourceController.getResourcesById(req.params.resource_id)
+                .then((resource) => {
+                    sockets[req.user._id].emit("observe", {
+                        identifier: resource.identifier
+                    });
+                    return res.status(200).end();
+                }, (reason) =>{
+                    console.log(reason);
+                    return res.status(500).end();
+                });
+        }
+    );
+
     return router;
 }
