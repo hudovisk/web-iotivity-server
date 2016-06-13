@@ -11,6 +11,7 @@ export default function() {
     router.get('/', 
         requireToken,
         (req, res, next) => {
+            sockets[req.user._id].emit("discovery");
             ResourceController.getResourcesByUserId(req.user._id)
                 .then((resources) => {
                     return res.status(200).json({resources});
@@ -26,6 +27,7 @@ export default function() {
         (req, res, next) => {
             ResourceController.getResourcesById(req.params.resource_id)
                 .then((resource) => {
+                    sockets[req.user._id].emit("get", {identifier: resource.identifier});
                     return res.status(200).json({resource});
                 }, (reason) =>{
                     console.log(reason);
