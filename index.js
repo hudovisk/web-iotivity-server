@@ -71,6 +71,7 @@ io.use(function(socket, next) {
 
 io.on('connection', function(socket){
   console.log('a gateway connected');
+  //TODO(Hudo): Use Socket .join instead of array
   sockets[socket.user._id] = socket;
 
   socket.emit("discovery");
@@ -88,6 +89,15 @@ io.on('connection', function(socket){
       }, (reason) => {
         console.log("Failed to register resource: " + getResponse.identifier);
         console.log(reason);
+      });
+  });
+
+  socket.on("disconnect", function() {
+    ResourceController.deregisterAllResources(socket.user._id)
+      .then(() => {
+        console.log("Deregistered all resources successfuly.");
+      }, (reason) => {
+        console.log("Failed to deregister all resources.");
       });
   });
 

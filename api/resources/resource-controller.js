@@ -50,3 +50,13 @@ export function getResourcesById(resourceId) {
             });
     });
 }
+
+export function deregisterAllResources(userId) {
+    return new Promise(function(resolve, reject) {
+        Resource.find({owner: userId})
+            .remove().exec(function(err) {
+                if(err) return reject(err);
+                return resolve();
+            });
+    });
+}
