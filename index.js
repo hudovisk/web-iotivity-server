@@ -60,7 +60,7 @@ app.get('/', function(req, res, next) {
   return res.status(200).json({
     attr: "Qualquer merda",
     outraKey: "Outra merda",
-    arr.ay: ["Varias merdas", "1", "2"]
+    array: ["Varias merdas", "1", "2"]
   });
 });
 
