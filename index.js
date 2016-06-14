@@ -54,6 +54,14 @@ app.use(function(req, res, next) {
   next();
 });
 
+app.get('/', function(req, res, next) {
+  return res.status(200).json({
+    attr: "Qualquer merda",
+    outraKey: "Outra merda",
+    array: ["Varias merdas", "1", "2"]
+  });
+});
+
 app.use('/api/auth/', authRouter());
 app.use('/api/resources/', resourceRouter());
 app.use('/api/users/', userRouter());
