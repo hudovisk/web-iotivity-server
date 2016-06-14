@@ -6,6 +6,7 @@ export default function() {
     var router = Router();
 
     router.post('/login', (req, res, next) => {
+        console.log(req.body);
         AuthController.getToken(req.body.email, req.body.password)
             .then((token) => {
                 if(token !== '')
@@ -19,6 +20,7 @@ export default function() {
     });
 
     router.post('/signup', (req, res, next) => {
+        console.log(req.body);
         var userData = {
             name: req.body.name,
             email: req.body.email,
