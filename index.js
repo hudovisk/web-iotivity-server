@@ -75,6 +75,7 @@ io.use(function(socket, next) {
     if (err || !user) {
       next(new Error("not authorized"));
     }
+    console.log(token);
     socket.user = user;
     next();
   });
