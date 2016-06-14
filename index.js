@@ -68,6 +68,7 @@ app.use('/api/auth/', authRouter());
 app.use('/api/resources/', resourceRouter());
 app.use('/api/users/', userRouter());
 
+io.set('origins', '*:*');
 io.use(function(socket, next) {
   var token = socket.request._query.token;
   checkToken(token, function(err, user){
