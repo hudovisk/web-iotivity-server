@@ -88,10 +88,10 @@ io.on('connection', function(socket){
 
   io.to(String(socket.user._id)).emit("discovery");
 
-  socket.on("discovery response", function(deviceId) {
-    console.log("New device " + deviceId);
-    io.to(String(socket.user._id)).emit("discovery response", {id: deviceId});
-    socket.emit("get", {identifier: deviceId});
+  socket.on("discovery response", function(resource) {
+    console.log("New device " + resource.id);
+    io.to(String(socket.user._id)).emit("discovery response", resource);
+    socket.emit("get", {identifier: resource.id});
   });
 
   socket.on("get response", function(getResponse) {
