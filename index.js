@@ -90,6 +90,12 @@ io.on('connection', function(socket){
 
   socket.on("discovery response", function(resource) {
     console.log("New device " + resource.id);
+    var host = resource.host;
+    delete resource.host;
+    var discoveryResponse = {
+      addr: host,
+      resource: resource
+    }
     io.to(String(socket.user._id)).emit("discovery response", resource);
     socket.emit("get", {identifier: resource.id});
   });
