@@ -90,13 +90,13 @@ io.on('connection', function(socket){
 
   socket.on("discovery response", function(deviceId) {
     console.log("New device " + deviceId);
-    sio.to(String(socket.user._id)).emit("discovery response", {id: deviceId});
+    io.to(String(socket.user._id)).emit("discovery response", {id: deviceId});
     socket.emit("get", {identifier: deviceId});
   });
 
   socket.on("get response", function(getResponse) {
     console.log("Get response");
-    sio.to(String(socket.user._id)).emit("get response", getResponse);
+    io.to(String(socket.user._id)).emit("get response", getResponse);
     ResourceController.registerResource(socket.user._id, getResponse)
       .then(() => {
         console.log(getResponse.identifier + " registered successfuly");
