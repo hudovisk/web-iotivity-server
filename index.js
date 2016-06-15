@@ -86,7 +86,7 @@ io.on('connection', function(socket){
   //TODO(Hudo): Use Socket .join instead of array
   socket.join(String(socket.user._id));
 
-  socket.emit("discovery");
+  io.to(String(socket.user._id)).emit("discovery");
 
   socket.on("discovery response", function(deviceId) {
     console.log("New device " + deviceId);
