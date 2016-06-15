@@ -11,6 +11,7 @@ export default function() {
     router.get('/', 
         requireToken,
         (req, res, next) => {
+            console.log(req.user);
             sockets[req.user._id].emit("discovery");
             ResourceController.getResourcesByUserId(req.user._id)
                 .then((resources) => {
