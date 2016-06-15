@@ -96,7 +96,7 @@ io.on('connection', function(socket){
       addr: host,
       resource: resource
     }
-    io.to(String(socket.user._id)).emit("discovery response", resource);
+    io.to(String(socket.user._id)).emit("discovery response", discoveryResponse);
     socket.emit("get", {identifier: resource.id});
   });
 
