@@ -84,7 +84,7 @@ io.use(function(socket, next) {
 io.on('connection', function(socket){
   console.log('a gateway connected');
   //TODO(Hudo): Use Socket .join instead of array
-  sockets[socket.user._id] = socket;
+  socket.join(String(socket.user._id));
 
   socket.emit("discovery");
 
@@ -120,4 +120,4 @@ http.listen(port, function() {
     console.log('Listenning on port: ' + port);
 });
 
-export default sockets;
+export default sio;

@@ -3,7 +3,7 @@ import { Router } from 'express';
 import { requireToken } from '../auth/auth-controller';
 import * as ResourceController from './resource-controller';
 
-import sockets from '../../index.js';
+import sio from '../../index.js';
 
 export default function() {
     var router = Router();
@@ -12,7 +12,7 @@ export default function() {
         requireToken,
         (req, res, next) => {
             console.log(req.user);
-            sockets[req.user._id].emit("discovery");
+            sio.to(String(req.user._id)).emit("discovery");
             ResourceController.getResourcesByUserId(req.user._id)
                 .then((resources) => {
                     return res.status(200).json({resources});
@@ -28,7 +28,7 @@ export default function() {
         (req, res, next) => {
             ResourceController.getResourcesById(req.params.resource_id)
                 .then((resource) => {
-                    sockets[req.user._id].emit("get", {identifier: resource.identifier});
+                    sio.to(String(req.user._id)).emit("get", {identifier: resource.identifier});
                     return res.status(200).json({resource});
                 }, (reason) =>{
                     console.log(reason);
@@ -42,7 +42,7 @@ export default function() {
         (req, res, next) => {
             ResourceController.getResourcesById(req.params.resource_id)
                 .then((resource) => {
-                    sockets[req.user._id].emit("put", {
+                    sio.to(String(req.user._id)).emit("put", {
                         identifier: resource.identifier,
                         attrs: req.body.attrs
                     });
@@ -59,7 +59,7 @@ export default function() {
         (req, res, next) => {
             ResourceController.getResourcesById(req.params.resource_id)
                 .then((resource) => {
-                    sockets[req.user._id].emit("observe", {
+                    sio.to(String(req.user._id)).emit("observe", {
                         identifier: resource.identifier
                     });
                     return res.status(200).end();
@@ -75,7 +75,7 @@ export default function() {
         (req, res, next) => {
             ResourceController.getResourcesById(req.params.resource_id)
                 .then((resource) => {
-                    sockets[req.user._id].emit("deobserve", {
+                    sio.to(String(req.user._id)).emit("deobserve", {
                         identifier: resource.identifier
                     });
                     return res.status(200).end();
