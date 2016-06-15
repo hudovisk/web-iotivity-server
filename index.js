@@ -120,4 +120,4 @@ http.listen(port, function() {
     console.log('Listenning on port: ' + port);
 });
 
-export default sio;
+export default io;
