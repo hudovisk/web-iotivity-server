@@ -129,6 +129,8 @@ io.on('connection', function(socket){
   });
 
   socket.on("action", function(action) {
+    console.log("Action received");
+    console.log(action);
     switch(action.type) {
     case 'GET_RESOURCE':
       socket.emit("get", {identifier: action.resourceId});
