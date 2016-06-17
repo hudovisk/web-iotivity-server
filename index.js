@@ -128,6 +128,17 @@ io.on('connection', function(socket){
       });
   });
 
+  socket.on("action", function(action) {
+    switch(action.type) {
+    case 'GET_RESOURCE':
+      socket.emit("get", {identifier: action.resourceId});
+      return;
+    default:
+      console.log("Unknown Action Type: " + action.type);
+      return;
+    }
+  });
+
 });
 
 //Server ========================================================= 
