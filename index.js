@@ -133,7 +133,7 @@ io.on('connection', function(socket){
     console.log(action);
     switch(action.type) {
     case 'GET_RESOURCE':
-      socket.emit("get", {identifier: action.resourceId});
+      io.to(String(socket.user._id)).emit("get", {identifier: action.resourceId});
       return;
     default:
       console.log("Unknown Action Type: " + action.type);
