@@ -135,6 +135,12 @@ io.on('connection', function(socket){
     case 'GET_RESOURCE':
       io.to(String(socket.user._id)).emit("get", {identifier: action.resourceId});
       return;
+    case 'OBSERVE_RESOURCE':
+      io.to(String(socket.user._id)).emit("observe", {identifier: action.resourceId});
+      return;
+    case 'DEOBSERVE_RESOURCE':
+      io.to(String(socket.user._id)).emit("deobserve", {identifier: action.resourceId});
+      return;
     default:
       console.log("Unknown Action Type: " + action.type);
       return;
