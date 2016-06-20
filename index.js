@@ -70,9 +70,12 @@ app.use('/api/users/', userRouter());
 
 io.set('origins', '*:*');
 io.use(function(socket, next) {
+  console.log("Authenticating socketio client");
   var token = socket.request._query.token;
   checkToken(token, function(err, user){
     if (err || !user) {
+      console.log("Not authenticated");
+      console.log(err);
       next(new Error("not authorized"));
     }
     console.log(user);
