@@ -25,19 +25,19 @@
    */
   "deploy" : {
     "production" : {
-      "user" : "ubuntu",
-      "host" : "52.39.6.143",
+      "user" : "hudo",
+      "host" : "hassenco.com",
       "ref"  : "origin/master",
       "repo" : "git@github.com:hudovisk/web-iotivity-server.git",
-      "path" : "/home/ubuntu/web-iotivity-server",
+      "path" : "/home/hudo/web-iotivity-server",
       "post-deploy" : "npm install && pm2 startOrRestart ecosystem.json --env production"
     },
     "dev" : {
-      "user" : "ubuntu",
-      "host" : "52.39.6.143",
+      "user" : "hudo",
+      "host" : "hassenco.com",
       "ref"  : "origin/staging",
       "repo" : "git@github.com:hudovisk/web-iotivity-server.git",
-      "path" : "/home/ec2-user/web-iotivity-staging",
+      "path" : "/home/hudo/web-iotivity-staging",
       "post-deploy" : "npm install && pm2 startOrRestart ecosystem.json --env dev"
     }
   }
