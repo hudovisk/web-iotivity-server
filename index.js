@@ -122,6 +122,11 @@ io.on('connection', function(socket){
       });
   });
 
+  socket.on("observe response", function(getResponse) {
+    console.log("Observe response");
+    io.to(String(socket.user._id)).emit("observe response", getResponse);
+  });
+
   socket.on("disconnect", function() {
     ResourceController.deregisterAllResources(socket.user._id)
       .then(() => {
