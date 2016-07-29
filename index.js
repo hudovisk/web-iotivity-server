@@ -147,7 +147,7 @@ io.on('connection', function(socket){
       io.to(String(socket.user._id)).emit("deobserve", {identifier: action.resourceId});
       return;
     case 'PUT_RESOURCE':
-      io.to(String(req.user._id))
+      io.to(String(socket.user._id))
         .emit("put", {
           identifier: action.resource.id,
           attrs: action.attrs
