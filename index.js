@@ -134,6 +134,9 @@ io.on('connection', function(socket){
     console.log("Action received");
     console.log(action);
     switch(action.type) {
+    case 'DISCOVER_RESOURCE':
+      io.to(String(socket.user._id)).emit("discovery");
+      return;
     case 'GET_RESOURCE':
       io.to(String(socket.user._id)).emit("get", {identifier: action.resourceId});
       return;
@@ -142,6 +145,13 @@ io.on('connection', function(socket){
       return;
     case 'DEOBSERVE_RESOURCE':
       io.to(String(socket.user._id)).emit("deobserve", {identifier: action.resourceId});
+      return;
+    case 'PUT_RESOURCE':
+      io.to(String(req.user._id))
+        .emit("put", {
+          identifier: action.resource.id,
+          attrs: action.attrs
+        });
       return;
     default:
       console.log("Unknown Action Type: " + action.type);
