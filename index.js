@@ -87,7 +87,7 @@ io.use(function(socket, next) {
 io.on('connection', function(socket){
   console.log('a gateway connected');
   //TODO(Hudo): Use Socket .join instead of array
-  if(!socket.user._id) {
+  if(!socket.user) {
     socket.disconnect();
     return
   }
