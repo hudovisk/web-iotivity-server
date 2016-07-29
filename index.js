@@ -150,7 +150,7 @@ io.on('connection', function(socket){
       io.to(String(socket.user._id))
         .emit("put", {
           identifier: action.resourceId,
-          attrs: action.attrs
+          attrs: [action.attr]
         });
       return;
     default:
